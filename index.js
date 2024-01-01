@@ -18,21 +18,8 @@ const server = http.createServer((req, res) => {
 });
 
 function logRequest(req, res, statusCode, message) {
-    const logEntry = {
-        host: req.headers.host,
-        logName: 'your-log-name',
-        user: req.headers['user-agent'],
-        timestamp: new Date().toISOString(),
-        request: {
-            method: req.method,
-            url: req.url,
-            headers: req.headers,
-        },
-        statusCode: statusCode,
-        size: Buffer.from(message).length,
-    };
-
-    console.log(JSON.stringify(logEntry), message);
+    const logEntry = `~${req.method} ${req.url} HTTP/${req.httpVersion}" ${statusCode} ${message}`;
+    console.log(logEntry);
 }
 
 server.listen(port, () => {
